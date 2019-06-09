@@ -4,7 +4,7 @@
  * Plugin URI: http://www.mk24.nl/
  * GitHub Plugin URI: https://github.com/Blindeman/mk24-language-tabs
  * Description: To add simple tabs to posts and pages for different languages. Comes with the shortcode: [ltabjes talen="Taal Language"][ltab taal="Taal"]inhoud[/ltab][ltab taal="Language"]content[/ltab][/ltabjes].
- * Version: 0.3
+ * Version: 0.4.1
  * Author: Naomi Blindeman
  * Author URI: http://www.blindemanwebsites.com
 */
@@ -13,6 +13,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+//AUB geen wijzigingen maken aan dit document op mk24.nl, zie hierboven voor github adres en neem contact met op via naomi@blindeman.com zodat ik je toe kan voegen om wijzigingen te maken.
 
 if ( ! class_exists( 'Ltab' ) ) {
 	class Ltab {

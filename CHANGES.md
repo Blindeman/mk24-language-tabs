@@ -1,3 +1,6 @@
+#### 0.4.1 / June 8, 2019
+* Waarschuwing toegevoegd: geen wijzigingen maken op mk24.nl, alleen op Github
+
 #### 0.4 / June 8, 2019
 * Added changelog
 
