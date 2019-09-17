@@ -1,14 +1,14 @@
 ﻿// code by http://www.jacklmoore.com/notes/jquery-tabs/
 // Wait until the DOM has loaded before querying the document
-jQuery(document).ready(function(){
-	jQuery('ul.tabjes').each(function(){
+jQuery(document).ready(function () {
+	jQuery('ul.tabjes').each(function () {
 		// For each set of tabs, we want to keep track of
 		// which tab is active and it's associated content
 		var $active, $content, $links = jQuery(this).find('a');
 
 		// If the location.hash matches one of the links, use that as the active tab.
 		// If no match is found, use the first link as the initial active tab.
-		$active = jQuery($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+		$active = jQuery($links.filter('[href="' + location.hash + '"]')[0] || $links[0]);
 		$active.addClass('active');
 
 		$content = jQuery($active[0].hash);
@@ -19,7 +19,7 @@ jQuery(document).ready(function(){
 		});
 
 		// Bind the click event handler
-		jQuery(this).on('click', 'a', function(e){
+		jQuery(this).on('click', 'a', function (e) {
 			// Make the old tab inactive.
 			$active.removeClass('active');
 			$content.hide();
@@ -37,4 +37,3 @@ jQuery(document).ready(function(){
 		});
 	});
 });
-
