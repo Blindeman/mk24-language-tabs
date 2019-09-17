@@ -134,6 +134,7 @@ if ( ! class_exists( 'Ltab' ) ) {
 	} //end class Ltab
 
 	//clean up the amount of extra paragraph tags added
+	//See also https://stackoverflow.com/questions/5940854/disable-automatic-formatting-inside-wordpress-shortcodes
 	remove_filter( 'the_content', 'wpautop' );
 	add_filter( 'the_content', 'wpautop' , 99);
 	add_filter( 'the_content', 'shortcode_unautop',100 );
