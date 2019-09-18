@@ -1,7 +1,7 @@
 # mk24-language-tabs
 To add simple tabs to posts and pages for different languages. 
-
 Comes with this shortcode:
+
 [ltabjes talen="Taal Language"][ltab taal="Taal"]
 
 inhoud
@@ -10,4 +10,6 @@ inhoud
 
 content
 
-[/ltab][/ltabjes].
+[/ltab][/ltabjes]
+
+Results are best when the shortcodes are on their own line, like above.

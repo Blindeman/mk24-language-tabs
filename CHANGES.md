@@ -1,10 +1,13 @@
+#### 1.0.1 / September 17, 2019
+* Minor cleanup en merg of branches
+
 #### 1.0 / September 17, 2019
 * Cleaned up CSS (flexbox instead of floats)
 * Put CSS in <style>-tags in page
 * Removed unnecessary checks
 * Removed ob_start() and put it all into nice strings
 * Removed extra paragraph tags surrounding shortcode-tags
-* Changed description to ce clearer on usage
+* Changed description to be clearer on usage
 
 #### 0.4.1 / June 8, 2019
 * Waarschuwing toegevoegd: geen wijzigingen maken op mk24.nl, alleen op Github
