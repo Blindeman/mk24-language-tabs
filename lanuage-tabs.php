@@ -4,7 +4,7 @@
  * Plugin URI: http://www.mk24.nl/
  * GitHub Plugin URI: https://github.com/Blindeman/mk24-language-tabs
  * Description: To add simple tabs to posts and pages for different languages. Comes with this shortcode: [ltabjes talen="Taal Language"][ltab taal="Taal"]inhoud[/ltab][ltab taal="Language"]content[/ltab][/ltabjes]. See README.md for more info on implementation.
- * Version: 1.0.1
+ * Version: 1.1
  * Author: Naomi Blindeman
  * Author URI: http://www.blindemanwebsites.com
 */
@@ -15,6 +15,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 //AUB geen wijzigingen maken aan dit document op mk24.nl, zie hierboven voor github adres en neem contact op via naomi@blindeman.com zodat ik je toe kan voegen om wijzigingen te maken.
+
+//with credit for this function to Drew Baker: https://stackoverflow.com/questions/13510131/remove-empty-p-tags-from-wordpress-shortcodes-via-a-php-functon#answer-49019912
+if( !function_exists( 'custom_filter_shortcode_text' ) ){
+	function custom_filter_shortcode_text( $text = '' ) {
+
+		// Replace all the poorly formatted P tags that WP adds by default.
+		$tags = array("<p>", "</p>");
+		$text = str_replace($tags, "\n", $text);
+
+		// Remove any BR tags
+		$tags = array("<br>", "<br/>", "<br />");
+		$text = str_replace($tags, "", $text);
+
+		// Add back in the P and BR tags, remove empty ones
+		return apply_filters('the_content', $text);
+
+	} //end function custom_filter_shortcode_text
+}
 
 if ( ! class_exists( 'Ltab' ) ) {
 	class Ltab {
@@ -51,17 +69,27 @@ if ( ! class_exists( 'Ltab' ) ) {
 			), $atts ) );
 			
 			$language = array();
+
 			if( !empty( $taal ) ){
 				$language[] = esc_attr( $taal );
 			}
 			
 			$divs = "";
+
+			//filter out extra paragraphs and linebreaks
+			$content = custom_filter_shortcode_text( $content );
+
 			foreach( $language as $lang ){
 				//using do_shortcode in case there are more shortcodes in the text
 				$divs .= "<div id=\"".$lang."\">". do_shortcode( $content ) ."</div>";
 			}
 
-			return $divs;
+			//the tabs don't work well on archive pages because some of the formatting is cut off in summaries
+			if( is_singular() ){
+				return $divs;
+			} else {
+				return do_shortcode( $content );
+			}
 		}//end function shortcode_taal
 		
 		public function shortcode_talen( $atts, $content = null ) {
@@ -85,16 +113,26 @@ if ( ! class_exists( 'Ltab' ) ) {
 
 			//create a tab for each language
 			$tabs= "";
+
 			foreach( $languages as $language ){
 				$tabs .= "<li><a href=\"#" . $language . "\">" . $language . "</a></li>"; 
 			}
+
 			//put those tabs inside a tabbar
 			$tabbar = "<ul class=\"tabjes\">" . $tabs . "</ul>";
+
+			//filter out extra paragraphs and linebreaks
+			$content = custom_filter_shortcode_text( $content );
 
 			//and then for each language show content in a separate div
 			$all = $style . $tabbar . do_shortcode( $content );
 			
-			return $all;
+			//tabbar isn't needed on archive pages
+			if( is_singular ){
+				return $all;
+			} else {
+				do_shortcode( $content );
+			}
 		} //end function shortcode
 		
 		
@@ -128,12 +166,6 @@ if ( ! class_exists( 'Ltab' ) ) {
 		}// end function _enqueue()
 		
 	} //end class Ltab
-
-	//clean up the amount of extra paragraph tags added
-	//See also https://stackoverflow.com/questions/5940854/disable-automatic-formatting-inside-wordpress-shortcodes
-	remove_filter( 'the_content', 'wpautop' );
-	add_filter( 'the_content', 'wpautop' , 99);
-	add_filter( 'the_content', 'shortcode_unautop',100 );
 	
 	new Ltab;
 	
