@@ -1,3 +1,6 @@
+#### 1.1.1 / September 27, 2019
+* Typo in the code fixed
+
 #### 1.1 / September 26, 2019
 * Made sure shortcode isn't returned on archive pages (see notes in plugin file)
 * Changed the way extra paragraph-tags are removed inside shortcode-tags

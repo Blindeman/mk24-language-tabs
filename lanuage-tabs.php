@@ -4,7 +4,7 @@
  * Plugin URI: http://www.mk24.nl/
  * GitHub Plugin URI: https://github.com/Blindeman/mk24-language-tabs
  * Description: To add simple tabs to posts and pages for different languages. Comes with this shortcode: [ltabjes talen="Taal Language"][ltab taal="Taal"]inhoud[/ltab][ltab taal="Language"]content[/ltab][/ltabjes]. See README.md for more info on implementation.
- * Version: 1.1
+ * Version: 1.1.1
  * Author: Naomi Blindeman
  * Author URI: http://www.blindemanwebsites.com
 */
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Ltab' ) ) {
 		 * Current version of the plugin.
 		 * @var string
 		 */
-		protected $version = '0.1';
+		protected $version = '1.1.1';
 		
 		public function __construct() {
 			/**
@@ -86,10 +86,10 @@ if ( ! class_exists( 'Ltab' ) ) {
 
 			//the tabs don't work well on archive pages because some of the formatting is cut off in summaries
 			if( is_singular() ){
-				return $divs;
-			} else {
-				return do_shortcode( $content );
-			}
+    			return $divs;
+            } else {
+                return do_shortcode( $content );
+            }
 		}//end function shortcode_taal
 		
 		public function shortcode_talen( $atts, $content = null ) {
@@ -128,10 +128,10 @@ if ( ! class_exists( 'Ltab' ) ) {
 			$all = $style . $tabbar . do_shortcode( $content );
 			
 			//tabbar isn't needed on archive pages
-			if( is_singular ){
-				return $all;
+			if( is_singular() ){
+			    return $all;
 			} else {
-				do_shortcode( $content );
+			    return do_shortcode( $content );
 			}
 		} //end function shortcode
 		
